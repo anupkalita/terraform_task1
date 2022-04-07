@@ -4,12 +4,18 @@
  	</head>
  	<body>
 <?php
-			$dbpassword = getenv("DB_PASSWORD");
-			$conn = new mysqli('db', 'root', $dbpassword,'details');
+			$conn = new mysqli(dbhost, mysql_user, mysql_password, 'mydb');
 			if($conn -> connect_error){
 				echo "\nError: Unable to connect: " .$conn -> connect_error;
 			}
 			echo "Connected to the database successfully";
+
+$sql1 = "CREATE TABLE IF NOT EXISTS person( id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50), age INT);";
+if ($conn->query($sql1) === TRUE) {
+          echo "\nTable MyGuests created successfully";
+} else {
+          echo "Error creating table: " . $conn->error;
+}
 
             if($_REQUEST['name']){
                 $name =  $_REQUEST['name'];
